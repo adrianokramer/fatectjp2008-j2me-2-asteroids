@@ -27,10 +27,10 @@ public class ObjVoador extends ObjJogo
 		super.px = x;
 		super.py = y;
 		
-		tipo = t;
-		velocidade = 0;
-		velocidadeMaxima = veloM;
-		energia = e;
+		this.tipo = t;
+		this.velocidade = 0;
+		this.velocidadeMaxima = veloM;
+		this.energia = e;
 	}
 
 	public int getTipo()

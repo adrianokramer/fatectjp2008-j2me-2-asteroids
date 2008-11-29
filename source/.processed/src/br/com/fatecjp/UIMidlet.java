@@ -40,7 +40,7 @@ public class UIMidlet extends MIDlet {
 			if(isSplash) {
 				isSplash = false;
 				try {
-					splashLogo = Image.createImage("/images/splash.png");
+					splashLogo = Image.createImage("/imagens/splash.png");
 					new SplashScreen(display, Menu.getInstance(), splashLogo, 4000);
 				} catch(Exception ex) {
 					controller.setCurrent(Menu.getInstance());

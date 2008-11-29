@@ -1,17 +1,15 @@
-#Fri Nov 28 01:19:01 GMT-03:00 2008
+#Sat Nov 29 02:09:59 GMT-03:00 2008
 eclipse.preferences.version=1
 encoding//.processed/src/br/com/fatecjp/UIMidlet.java=UTF-8
 encoding//.processed/src/br/com/fatecjp/core/AsteroidsCanvas.java=UTF-8
 encoding//.processed/src/br/com/fatecjp/core/CountDown.java=UTF-8
 encoding//.processed/src/br/com/fatecjp/core/ObjJogo.java=UTF-8
 encoding//.processed/src/br/com/fatecjp/core/ObjVoador.java=UTF-8
-encoding//.processed/src/br/com/fatecjp/core/UIController.java=UTF-8
 encoding//.processed/src/br/com/fatecjp/exemplos/CanvasListExample.java=UTF-8
 encoding//.processed/src/br/com/fatecjp/exemplos/DisplaySize.java=UTF-8
 encoding//.processed/src/br/com/fatecjp/exemplos/SlideImage.java=UTF-8
 encoding//.processed/src/br/com/fatecjp/exemplos/SlideMenu.java=UTF-8
 encoding//.processed/src/br/com/fatecjp/telas/About.java=UTF-8
-encoding//.processed/src/br/com/fatecjp/telas/Login.java=UTF-8
 encoding//.processed/src/br/com/fatecjp/telas/Menu.java=UTF-8
 encoding//.processed/src/br/com/fatecjp/telas/SplashScreen.java=UTF-8
 encoding//.processed/src/fatecjp/game/asteroids/About.java=UTF-8

@@ -14,14 +14,14 @@ public class Menu extends Form implements CommandListener {
 	private static Menu instance;
 	
 	private Menu() {
-		super("MAIN MENU");
+		super("");
 		
 		this.cmd_play = new Command("Start", Command.SCREEN, 1);
 		this.cmd_about = new Command("About", Command.SCREEN, 1);
 		this.cmd_exit = new Command("Exit", Command.EXIT, 1);
 		
 		Image image = null;
-    	String icon = "/imagens/splash240x280px.png";
+    	String icon = "/imagens/splash240x300px.png";
     	
 		    try {
 		        image = Image.createImage(icon);
@@ -34,8 +34,7 @@ public class Menu extends Form implements CommandListener {
 		append("About", null);
 		append("Exit", null);
 		*/
-		append(image);
-		
+		append(image);		
 		
 		this.addCommand(this.cmd_play);
 		this.addCommand(this.cmd_about);

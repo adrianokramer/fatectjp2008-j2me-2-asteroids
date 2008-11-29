@@ -14,6 +14,7 @@ import br.com.fatecjp.UIMidlet;
 import br.com.fatecjp.telas.Menu;
 
 import java.io.IOException;
+import java.util.Random;
 import java.util.Stack;
 
 
@@ -66,10 +67,10 @@ public class AsteroidsCanvas extends GameCanvas implements Runnable, CommandList
 	private final static int 	sleepTime = 30;
 	//private final static int bordaEsquerda = 36, bordaDireita = 200;
 
-	private int iniciar=0; 
+	private int iniciar=0;
 
 	private int count;
-	private boolean pausado;
+	private boolean pausado, ini=true;
     
 	//Comandos
 	public static final int CMD_RESET	= 1;
@@ -146,23 +147,24 @@ public class AsteroidsCanvas extends GameCanvas implements Runnable, CommandList
 	{
 		setMapa(mapa1);
 		carregaMapa();
+		//processaTeclas();
 		
-		naveJogador = new ObjVoador(nave1, 0, col2, 200, 30, 6);
-
+		naveJogador = new ObjVoador(nave1, 0, col2, 200, 30, 100);
+		
 		pausado = false;
 		count=0;
-		iniciar=4;
+		iniciar=0;
 		tempo = 0;
 		pontuacao = 0;
 		
-		setState();
+		setState(); //Adiciona opção
 		
 		//Inicializa na tela inicial
 		if(hard_reset==true){
 			pausado = true;
 		}
 		//Inicia thread e muda o display
-		new Thread(this).start();
+		if(ini==true)new Thread(this).start();
 		setCurrent(this);
 	}
 	
@@ -174,7 +176,9 @@ public class AsteroidsCanvas extends GameCanvas implements Runnable, CommandList
 			break;
 		    
 		   case CMD_RESET:
-		    	iniciaJogo(false);
+			   if(iniciar!=4)
+				   this.ini = false; //Não inicia o thread
+		       iniciaJogo(false);
 			break;
 
 		    case CMD_MENU:	  
@@ -216,9 +220,11 @@ public class AsteroidsCanvas extends GameCanvas implements Runnable, CommandList
 	private void carregaMapa()
 	{
 		Image img=null;
-		int x,y;
+		int x,y, start=1, it=0;
 		numOvnis = mapa[0];
 		ovniInimigo = new ObjVoador[numOvnis];
+		Random r = new Random();
+		
 		for(y=0, x=1; y<numOvnis; x+=3, y++)
 		{
 			
@@ -230,8 +236,36 @@ public class AsteroidsCanvas extends GameCanvas implements Runnable, CommandList
 				img = asteroid3;
 			else if(mapa[x] == 4)
 				img = cometa1;		
-
-			ovniInimigo[y] = new ObjVoador(img, mapa[x], mapa[x+1], mapa[x+2], -10 ,3);
+			
+		    int ini_pos = r.nextInt(3);
+			
+			//Randomizando asteroids em colunas
+			int[] col = new int[3];
+			col[0] = 30;
+			col[1] = 110;
+			col[2] = 180;
+			
+			//Evitando espaços vazios constantes
+			int posicao = col[ini_pos]+(ini_pos*5);
+			it++;
+			if(posicao>=30 && posicao<=110 && (start==1 || it>1)) {
+				posicao += posicao+(ini_pos*5);
+				System.out.println("aqui1");
+				it++;
+			}
+			
+			if(posicao >=110 && posicao<=180 && (start==1 || it>1)){
+				posicao = posicao+(ini_pos*5);
+				System.out.println("aqui2");
+				it++;
+			}
+			if(it>2)it=0;
+			start=0;
+			////////////////////////////////////
+			System.out.println(posicao);
+			System.out.println(it);
+														 //Coluna + ajuste
+			ovniInimigo[y] = new ObjVoador(img, mapa[x], posicao/*mapa[x+1]*/, mapa[x+2], -10 ,3);
 			ovniInimigo[y].setVelocidade(-5);
 		}
 	}
@@ -257,7 +291,6 @@ public class AsteroidsCanvas extends GameCanvas implements Runnable, CommandList
 		for(x=0; x<numOvnis; x++)
 		{
 
-
 			/***********************
 		 	* Anda nave para fente
 		 	***********************/
@@ -270,8 +303,8 @@ public class AsteroidsCanvas extends GameCanvas implements Runnable, CommandList
 				//for ()
 				naveJogador.setPx(px_ant-20);
 				
-				naveJogador.setVelocidade(-10);
-				naveJogador.incEnergia(-1);
+				naveJogador.setVelocidade(0);
+				naveJogador.incEnergia(-20);
 			}
 			
 		}
@@ -381,26 +414,22 @@ public class AsteroidsCanvas extends GameCanvas implements Runnable, CommandList
 
 		g.setColor(255,255,255);
 		int velocidade = naveJogador.getVelocidade(); //Incrementado a amostragem da velocidade
-		if(velocidade < 0)velocidade = 0; //Trata velocidade negativa
-		g.drawString("Pontos: "+this.pontuacao+" Tempo: "+this.tempo+" s", 50,260, Graphics.TOP | Graphics.LEFT);
-		g.drawString("Ovnis: "+ getPosicao()+"  Ener: "+naveJogador.getEnergia()+" Vel: " + velocidade*40 +" Km/h",50,270, Graphics.TOP | Graphics.LEFT);
+		int energia = naveJogador.getEnergia();
 		
-		//RGB
-		/*
-		int flag1 = 0x960000; 
-		int flag2 = 0x960000;
-		int flag3 = 0x009600; 	
-		*/
+		if(velocidade < 0)velocidade = 0; //Trata velocidade negativa
+		if(energia < 0)energia = 0;
+		
+		g.drawString("Pontos: "+this.pontuacao+" Tempo: "+this.tempo+" s", 50,260, Graphics.TOP | Graphics.LEFT);
+		g.drawString("Ovnis: "+ getPosicao()+"  Ener: "+energia+"% Vel: " + velocidade*40 +" Km/h",50,270, Graphics.TOP | Graphics.LEFT);
+		
+		
 		int flag1 = 0x000000, flag2 = 0x000000, flag3 = 0x000000;
 		
 		if(iniciar  > 0)
-			//flag1 = 0xFF0000;
 			flag1 = 0xffffff;
 		if(iniciar > 1)
-			//flag2 = 0xFF0000;
 			flag2 = 0xffffff;
 		if(iniciar > 2)
-			//flag3 = 0x00FF00;
 			flag3 = 0xffffff;
 		
 		//g.fillArc(2,270,8,8,0,360); //desenha círculo
@@ -495,9 +524,11 @@ public class AsteroidsCanvas extends GameCanvas implements Runnable, CommandList
 					//Incrementando tempo e pontuação
 					if(iniciar==4)
 						tempo++;
-					//Cáculo da pontuação (80*velocidade + 20*energia)
+					//Cáculo da pontuação (60*velocidade + 30*energia - 10*tempo)
+					//A velocidade é prioridade, a energia aumenta o ganho de pontuação
+					//e o tempo diminui os pontos
 					if(naveJogador.getVelocidade()>0)
-						pontuacao += 80*(naveJogador.getVelocidade()) - 20*(this.naveJogador.getEnergia());
+						pontuacao += 60*(naveJogador.getVelocidade()) + 30*(this.naveJogador.getEnergia()) - 10*tempo;
 					if(pontuacao<0)
 						pontuacao=0;
 				}
@@ -534,7 +565,7 @@ public class AsteroidsCanvas extends GameCanvas implements Runnable, CommandList
 		
 		if((keyStates & DOWN_PRESSED)!=0)
 		{
-			if(naveJogador.getVelocidade() >= 3)
+			if(naveJogador.getVelocidade() >= 1) //Zera a velocidade
 				naveJogador.incVelocidade(-1);
 		}
 
@@ -551,7 +582,7 @@ public class AsteroidsCanvas extends GameCanvas implements Runnable, CommandList
 				{
 					naveJogador.setPx(px_ant+10);
 					naveJogador.setVelocidade(0);
-					naveJogador.incEnergia(-1);
+					naveJogador.incEnergia(-10);
 				}
 			}
 		}
@@ -569,7 +600,7 @@ public class AsteroidsCanvas extends GameCanvas implements Runnable, CommandList
 				{
 					naveJogador.setPx(px_ant-10);
 					naveJogador.setVelocidade(0);
-					naveJogador.incEnergia(-1);
+					naveJogador.incEnergia(-10);
 				}
 			}			
 		}
