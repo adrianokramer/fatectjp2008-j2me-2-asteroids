@@ -250,20 +250,16 @@ public class AsteroidsCanvas extends GameCanvas implements Runnable, CommandList
 			it++;
 			if(posicao>=30 && posicao<=110 && (start==1 || it>1)) {
 				posicao += posicao+(ini_pos*5);
-				System.out.println("aqui1");
 				it++;
 			}
 			
 			if(posicao >=110 && posicao<=180 && (start==1 || it>1)){
 				posicao = posicao+(ini_pos*5);
-				System.out.println("aqui2");
 				it++;
 			}
 			if(it>2)it=0;
 			start=0;
 			////////////////////////////////////
-			System.out.println(posicao);
-			System.out.println(it);
 														 //Coluna + ajuste
 			ovniInimigo[y] = new ObjVoador(img, mapa[x], posicao/*mapa[x+1]*/, mapa[x+2], -10 ,3);
 			ovniInimigo[y].setVelocidade(-5);
@@ -419,8 +415,8 @@ public class AsteroidsCanvas extends GameCanvas implements Runnable, CommandList
 		if(velocidade < 0)velocidade = 0; //Trata velocidade negativa
 		if(energia < 0)energia = 0;
 		
-		g.drawString("Pontos: "+this.pontuacao+" Tempo: "+this.tempo+" s", 50,260, Graphics.TOP | Graphics.LEFT);
-		g.drawString("Ovnis: "+ getPosicao()+"  Ener: "+energia+"% Vel: " + velocidade*40 +" Km/h",50,270, Graphics.TOP | Graphics.LEFT);
+		g.drawString("Pontos: "+this.pontuacao+" Tempo: "+this.tempo+" s", 45,260, Graphics.TOP | Graphics.LEFT);
+		g.drawString("Ovnis: "+ getPosicao()+"  Ener: "+energia+"% Vel: " + velocidade*40 +" Km/h",45,270, Graphics.TOP | Graphics.LEFT);
 		
 		
 		int flag1 = 0x000000, flag2 = 0x000000, flag3 = 0x000000;

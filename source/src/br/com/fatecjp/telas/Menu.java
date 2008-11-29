@@ -14,7 +14,7 @@ public class Menu extends Form implements CommandListener {
 	private static Menu instance;
 	
 	private Menu() {
-		super("");
+		super("Asteroids 2008");
 		
 		this.cmd_play = new Command("Start", Command.SCREEN, 1);
 		this.cmd_about = new Command("About", Command.SCREEN, 1);
