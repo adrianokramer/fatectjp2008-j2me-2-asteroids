@@ -1,0 +1,8 @@
+MIDlet-Version: 0.0.2
+MIDlet-Vendor: Daniel Viana
+MIDlet-Jar-URL: Asteroids.jar
+MicroEdition-Configuration: CLDC-1.1
+MicroEdition-Profile: MIDP-1.0
+MIDlet-1: Asteroids,,fatecjp.game.asteroids.Asteroids
+MIDlet-Jar-Size: 225410
+MIDlet-Name: Asteroids 2008
