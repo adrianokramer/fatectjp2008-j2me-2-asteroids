@@ -584,7 +584,7 @@ public class AsteroidsController extends GameCanvas implements Runnable, Command
 			tipo = r.nextInt(8);
 			img = images[tipo]; //Selecionando modelo do asteroide randomicamente
 			
-		    ini_pos = r.nextInt(3);			
+                        ini_pos = r.nextInt(3);			
 			//Randomizando asteroids em colunas
 			int[] col = new int[3];
 			col[0] = 30;
@@ -861,7 +861,7 @@ public class AsteroidsController extends GameCanvas implements Runnable, Command
 										//flushGraphics();
 									}	
 									System.out.println("Colisao com o asteroid "+x+" detectada!");									
-									if(stop_sound==0)playSound("/sounds/damage_ship.wav");
+									if(stop_sound==0)playSound("/sounds/damage_ship.mp3");
 								}	
 								
 								//Disparo
@@ -884,7 +884,7 @@ public class AsteroidsController extends GameCanvas implements Runnable, Command
 								  destroyed++;
 								  score = score + 10000; //Ganha 10000 pontos por acerto
 								  
-								  if(stop_sound==0)playSound("/sounds/explosion_asteroid.wav");
+								  if(stop_sound==0)playSound("/sounds/explosion_asteroid.mp3");
 								}
 								
 								
@@ -1064,7 +1064,7 @@ public class AsteroidsController extends GameCanvas implements Runnable, Command
 	private void playSound(String file) {
             try {
                 InputStream in = getClass().getResourceAsStream (file);
-                Player player = Manager.createPlayer(in, "audio/x-wav");
+                Player player = Manager.createPlayer(in, "audio/x-mp3");
                 player.start();
             } 
             catch (Exception e) {
