@@ -97,7 +97,7 @@ public class AsteroidsController extends GameCanvas implements Runnable, Command
 	public boolean pausado;
 	public boolean ini = true;
         public int dificult = 1;
-        public int stop_sound = 0;
+        public int stop_sound = 1;
         public int fires = 10;
         public int destroyed = 0;
         
@@ -797,7 +797,7 @@ public class AsteroidsController extends GameCanvas implements Runnable, Command
 			while(!pausado)
 			{
 				
-				//playSound("/sounds/ship.mp3");
+				//playSound("/sounds/ship.wav");
 				//System.out.println("Rodando...");
 				//Thread.sleep(sleepTime);
 				
@@ -822,7 +822,8 @@ public class AsteroidsController extends GameCanvas implements Runnable, Command
 						
 						spr_ship.setPosition(ship_x, ship_y);						
 						
-						spr_earth.setPosition(70, earth_y);
+                                                //Posicionando o planeta
+						spr_earth.setPosition(maxX/2 - spr_earth.getWidth()/2, earth_y);
 						
 						// Atualiza a posi��o do mapa
 						layer_manager.setViewWindow(map_x, map_y, maxX, maxY);
@@ -834,9 +835,8 @@ public class AsteroidsController extends GameCanvas implements Runnable, Command
 						spr_fire.paint(g);
 						spr_ship.paint(g);
 						
-						spr_ship.setTransform(Sprite.TRANS_NONE);
-						//spr_red_explosion.paint(g);
-						//spr_red_explosion.setFrame(10);
+						spr_ship.setTransform(Sprite.TRANS_NONE);						
+                                                //spr_red_explosion.setFrame(10);
 						
 						for(int x=0; x<numOvnis; x++)
 						{	
@@ -855,13 +855,13 @@ public class AsteroidsController extends GameCanvas implements Runnable, Command
 										spr_red_explosion.setPosition(ship_x +2, ship_y);
 										spr_red_explosion.nextFrame();
 										spr_red_explosion.paint(g);
-										flushGraphics();
+										//flushGraphics();
 										//spr_red_explosion.paint(g);
 										//System.out.println("Frame: "+spr_red_explosion.getFrame());
 										//flushGraphics();
 									}	
 									System.out.println("Colisao com o asteroid "+x+" detectada!");									
-									if(stop_sound==0)playSound("/sounds/damage_ship.mp3");
+									if(stop_sound==0)playSound("/sounds/damage_ship.wav");
 								}	
 								
 								//Disparo
@@ -872,7 +872,7 @@ public class AsteroidsController extends GameCanvas implements Runnable, Command
 									spr_red_explosion.setPosition(spr[x].getX() +2, spr[x].getY());
 									spr_red_explosion.nextFrame();
 									spr_red_explosion.paint(g);
-									flushGraphics();
+									//flushGraphics();
 						   		  }	
 						
 								  fire_x = 0;
@@ -884,7 +884,7 @@ public class AsteroidsController extends GameCanvas implements Runnable, Command
 								  destroyed++;
 								  score = score + 10000; //Ganha 10000 pontos por acerto
 								  
-								  if(stop_sound==0)playSound("/sounds/explosion_asteroid.mp3");
+								  if(stop_sound==0)playSound("/sounds/explosion_asteroid.wav");
 								}
 								
 								
@@ -1040,18 +1040,22 @@ public class AsteroidsController extends GameCanvas implements Runnable, Command
 					case 90:
 						ship.setTransform(Sprite.TRANS_ROT90);
 						rotation = 180;
+                                                spr_red_explosion.nextFrame();
 						break;
 					case 180:
 						ship.setTransform(Sprite.TRANS_ROT180);
 						rotation = 270;
+                                                spr_red_explosion.nextFrame();
 						break;
 					case 270:
 						ship.setTransform(Sprite.TRANS_ROT270);
 						rotation = 0;
+                                                spr_red_explosion.nextFrame();
 						break;				
 					default:
 						ship.setTransform(Sprite.TRANS_NONE);
 						rotation = 90;
+                                                spr_red_explosion.nextFrame();
 						break;
 				}
 			
@@ -1064,12 +1068,13 @@ public class AsteroidsController extends GameCanvas implements Runnable, Command
 	private void playSound(String file) {
             try {
                 InputStream in = getClass().getResourceAsStream (file);
-                Player player = Manager.createPlayer(in, "audio/x-mp3");
+                Player player = Manager.createPlayer(in, "audio/x-wav");
                 player.start();
             } 
             catch (Exception e) {
                 //Alert a = new Alert("Exception", e.toString(), null, null);
                 //a.setTimeout(Alert.FOREVER);
+                System.out.println("Erro ao reproduzir arquivo!");
                 return;
             }
         }
