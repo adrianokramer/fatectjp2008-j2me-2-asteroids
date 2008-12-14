@@ -956,7 +956,7 @@ public class AsteroidsController extends GameCanvas implements Runnable, Command
 		spr_ship.setFrame(0);
 
 		
-		if((keyStates & GAME_A_PRESSED) != 0)
+		if((keyStates & FIRE_PRESSED) != 0)
 		{
 			/*if(pausado)
 			{
