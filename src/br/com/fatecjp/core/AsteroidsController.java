@@ -80,7 +80,7 @@ public class AsteroidsController extends GameCanvas implements Runnable, Command
 	// Velocidade lateral da nave
 	int speed_left_right = 6;
 	
-	// Velocidade mï¿½xima da nave
+	// Velocidade maxima da nave
 	int max_speed		 = 50;
 	
 	// Velocidade atual da nave
@@ -120,7 +120,7 @@ public class AsteroidsController extends GameCanvas implements Runnable, Command
 	
 	int lower_limit_map = 12000;
 	
-	int rotation = 90; //Define o tipo de rotaï¿½ï¿½o inicial que serï¿½ feita nos asteroids...
+	int rotation = 90; //Define o tipo de rotacao inicial que sera feita nos asteroids...
 	//////////////////////////////////////////
 	
 	// Mapeamento do mapa do jogo (universo.png)
@@ -377,17 +377,17 @@ public class AsteroidsController extends GameCanvas implements Runnable, Command
 	public AsteroidsController(MIDlet md){
 		super(true);	
 		
-		// Pega a largura mï¿½xima do visor.
+		// Pega a largura maxima do visor.
 		maxX = getWidth();
 		
-		// Ajusta a largura mï¿½xima do jogo. 
+		// Ajusta a largura maxima do jogo. 
 		// O jogo pode ter uma largura mï¿½xima de 240 px,
 		// portanto, se o visor for maior que isso, ajusta para 240px.
 		
 		if (maxX > 240)
 			maxX = 240;		
 
-		// Pega a altura mï¿½xima do visor.
+		// Pega a altura maxima do visor.
 		maxY = getHeight();
 		
 		
@@ -404,7 +404,7 @@ public class AsteroidsController extends GameCanvas implements Runnable, Command
 		
 		//Dados do jogo
 		//carregaimages();		
-		//iniciaJogo(true); //Primeira inicializaï¿½ï¿½o - Tï¿½tulo
+		//iniciaJogo(true); //Primeira inicializacao
 	}
 	
 	public void startGame(boolean hard_reset)
@@ -420,20 +420,20 @@ public class AsteroidsController extends GameCanvas implements Runnable, Command
 		destroyed = 0;
                 lower_limit_map = 12000;
 		
-		setState(); //Adiciona opï¿½ï¿½es disponï¿½veis
+		setState(); //Adiciona opicos disponiveis
 		
-		carregaimages();
+		loadImages();
 		
 		// Carrega o tileset
 		try {
 			
 			spr_fire     = new Sprite(img_fire, 3, 40);
 			
-			// Define um sprite de animaï¿½ï¿½o para a nave:
+			// Define um sprite de animacao para a nave:
 			img_ship 			= Image.createImage("/images/ship.png");
 			spr_ship            = new Sprite(img_ship, 29, 33);
 			
-			// Define um sprite para a animaï¿½ï¿½o da explosï¿½o da nave:
+			// Define um sprite para a animacao da explosao da nave:
 			img_red_explosion	= Image.createImage("/images/red_explosions_25x25.png");
 			spr_red_explosion   = new Sprite(img_red_explosion, 25, 25);
 			
@@ -454,7 +454,7 @@ public class AsteroidsController extends GameCanvas implements Runnable, Command
 		 */
 		tiled_layer = new TiledLayer(4, 200, img_universe, 60,60);
 		
-		// Associa as posiï¿½ï¿½es no objeto com o tiled_layer			
+		// Associa as posicoes no objeto com o tiled_layer			
 		int lin, col;			
 		for(int i=0; i < 800;i++) {
 			col  = i % 4;       
@@ -473,7 +473,7 @@ public class AsteroidsController extends GameCanvas implements Runnable, Command
 		layer_manager.append(spr_earth);
 		
 		setMapa(map1);
-		carregaMapa();
+		loadMap();
 		createAsteroids();
 		
 		layer_manager.append(tiled_layer);	
@@ -491,7 +491,7 @@ public class AsteroidsController extends GameCanvas implements Runnable, Command
 		if(ini==true)new Thread(this).start();
 		setCurrent(this);
 		
-		//Inicializaï¿½ï¿½o
+		//Inicializacao
 		
 		lower_limit_map -= maxY;
 		upper_limit_map = 0;
@@ -500,7 +500,7 @@ public class AsteroidsController extends GameCanvas implements Runnable, Command
 		lower_limit_scr = lower_limit_map + maxY - padding_ship - spr_ship.getHeight();
 		upper_limit_scr = lower_limit_scr - 250; //Comprimento do espaï¿½o jogï¿½vel
 				
-		// Posiï¿½ï¿½o inicial do mapa		
+		// Posicao inicial do mapa		
 		map_x = 0;
 		map_y = lower_limit_map;
 		
@@ -541,7 +541,7 @@ public class AsteroidsController extends GameCanvas implements Runnable, Command
 		map = m;
 	}
 	
-	private void carregaimages()
+	private void loadImages()
 	{
 		try
 		{
@@ -571,7 +571,7 @@ public class AsteroidsController extends GameCanvas implements Runnable, Command
 		images[7] = img_asteroid8;
 	}
 
-	private void carregaMapa()
+	private void loadMap()
 	{
 		Image img = null;
 		int x, y, start=1, it=0, tipo=0, ini_pos=0;
@@ -591,7 +591,7 @@ public class AsteroidsController extends GameCanvas implements Runnable, Command
 			col[1] = 110;
 			col[2] = 180;
 			
-			//Evitando espaï¿½os vazios constantes
+			//Evitando espacos vazios constantes
 			int posicao = col[ini_pos]+(ini_pos*5);
 			it++;
 			if(posicao>=30 && posicao<=110 && (start==1 || it>1)) {
@@ -663,7 +663,7 @@ public class AsteroidsController extends GameCanvas implements Runnable, Command
 		return numOvnis-(p);	
 	}
 
-	private void andaUniverso()
+	private void runUniverse()
 	{		
 		int mov = 2;
 		
@@ -697,7 +697,7 @@ public class AsteroidsController extends GameCanvas implements Runnable, Command
 	
 	private void drawInterface(Graphics g)
 	{	
-		//// Informaï¿½ï¿½es do jogo ///
+		//// Informacoes do jogo ///
 		int velocidade = playerShip.getSpeed(); //Incrementado a amostragem da velocidade
 		int energia = playerShip.getEnergy();
 		if(velocidade < 0)velocidade = 0; //Trata velocidade negativa
@@ -736,7 +736,7 @@ public class AsteroidsController extends GameCanvas implements Runnable, Command
 		
 		//Carregando jogo...
 		g.setColor(255, 0, 0);
-		// Escreve a tecla pressionada e as posiï¿½ï¿½es x/y na tela.
+		// Escreve a tecla pressionada e as posicoes x/y na tela.
 		// g.drawString(text1.toString(), 100,150, Graphics.LEFT | Graphics.BOTTOM);	
 
 	}
@@ -768,7 +768,7 @@ public class AsteroidsController extends GameCanvas implements Runnable, Command
 		{
 			pausado = true;
 			started = 0;
-			this.ini = false; //Nï¿½o inicia o thread
+			this.ini = false; //Nao inicia o thread
 			
 			g.setFont(Font.getFont(Font.FACE_SYSTEM, Font.STYLE_BOLD, Font.SIZE_LARGE));
 			g.setColor(255,0,0);
@@ -808,12 +808,12 @@ public class AsteroidsController extends GameCanvas implements Runnable, Command
 					{
 						checkEndGame(g);
 						drawInterface(g);
-						andaUniverso();
+						runUniverse();
 						moveAsteroids();
 						
 						//setState();
 						
-						//Atualiza posiï¿½ï¿½o Sprites
+						//Atualiza posicao Sprites
 						if(fire_side==1)
 							spr_fire.setPosition(fire_x+20, fire_y);
 						else
@@ -825,7 +825,7 @@ public class AsteroidsController extends GameCanvas implements Runnable, Command
                                                 //Posicionando o planeta
 						spr_earth.setPosition(maxX/2 - spr_earth.getWidth()/2, earth_y);
 						
-						// Atualiza a posiï¿½ï¿½o do mapa
+						// Atualiza a posicao do mapa
 						layer_manager.setViewWindow(map_x, map_y, maxX, maxY);
 						
 						//Atualiza o planeta - fim do jogo
@@ -850,7 +850,7 @@ public class AsteroidsController extends GameCanvas implements Runnable, Command
 								spr[x].paint(g);
 								
 								if(crashTest(spr_ship, spr[x])){
-								    // Renderizando a explosï¿½o... 	
+								    // Renderizando a explosao... 	
 									for(int n=0; n < 11; n++) {
 										spr_red_explosion.setPosition(ship_x +2, ship_y);
 										spr_red_explosion.nextFrame();
@@ -867,7 +867,7 @@ public class AsteroidsController extends GameCanvas implements Runnable, Command
 								//Disparo
 								if(spr_fire.collidesWith(spr[x], true)){
 									
-								  //Exibindo a explosï¿½o do asteroid atingido
+								  //Exibindo a explosao do asteroid atingido
 								  for(int n=0; n < 11; n++) {
 									spr_red_explosion.setPosition(spr[x].getX() +2, spr[x].getY());
 									spr_red_explosion.nextFrame();
@@ -908,7 +908,7 @@ public class AsteroidsController extends GameCanvas implements Runnable, Command
 					g.drawString(text3.toString(), 5,40, Graphics.LEFT | Graphics.BOTTOM);	
 					g.drawString(text4.toString(), 5,20, Graphics.LEFT | Graphics.BOTTOM);	
 					
-					flushGraphics(); //Atualizando grï¿½ficos
+					flushGraphics(); //Atualizando graficos
 					
 				   					
 				}//End Rodando
@@ -923,11 +923,11 @@ public class AsteroidsController extends GameCanvas implements Runnable, Command
 				else{
 					count=0;
 					 
-					//Incrementando tempo e pontuaï¿½ï¿½o
+					//Incrementando tempo e pontuação
 					if(started==4)
 						time++;
-					//Cï¿½culo da pontuaï¿½ï¿½o (60*velocidade + 30*energia - 10*tempo)
-					//A velocidade ï¿½ prioridade, a energia aumenta o ganho de pontuaï¿½ï¿½o
+					//Calculo da pontuação (60*velocidade + 30*energia - 10*tempo)
+					//A velocidade eh prioridade, a energia aumenta o ganho de pontuacao
 					//e o tempo diminui os pontos
 					//if(naveJogador.getVelocidade()>0)
 						score += 60*(this.playerShip.getEnergy()) - 40*time;
@@ -938,7 +938,7 @@ public class AsteroidsController extends GameCanvas implements Runnable, Command
 				handleGame(); //Recebe entradas do jogo
 				//System.out.println("MAP_LIMIT_LO:"+lower_limit_scr+" MAP_LIMIT_UP:"+upper_limit_scr+" Posiï¿½ï¿½o da nave:"+ship_y);
 				
-				 //Pausa para exibir a explosï¿½o
+				 //Pausa para exibir a explosao
 			    try{
 					Thread.sleep(30);
 				}
@@ -952,7 +952,7 @@ public class AsteroidsController extends GameCanvas implements Runnable, Command
 	{
 		int keyStates = getKeyStates();
 		
-		//Inicializando posiï¿½ï¿½o da nave
+		//Inicializando posicao da nave
 		spr_ship.setFrame(0);
 
 		
@@ -980,7 +980,7 @@ public class AsteroidsController extends GameCanvas implements Runnable, Command
 		
 
 		if((keyStates & UP_PRESSED)!=0){
-			// avanï¿½a a nave
+			// avanca a nave
 			if (ship_y > upper_limit_scr) {
 				ship_y = ship_y - 10;	
 				playerShip.py = ship_y;
@@ -1023,7 +1023,7 @@ public class AsteroidsController extends GameCanvas implements Runnable, Command
 			spr_ship.setFrame(2);
 		}
 
-		//Teste de colisï¿½es, apï¿½s atualizaï¿½ï¿½o das posiï¿½ï¿½es (ship x asteroids)
+		//Teste de colisoes, apos atualizacao das posicoes (ship x asteroids)
 		//crashTest();
 
 	}
@@ -1059,16 +1059,17 @@ public class AsteroidsController extends GameCanvas implements Runnable, Command
 						break;
 				}
 			
-				//spr_red_explosion.setFrame(10); //Apaga da tela o rastro da explosï¿½o
+				//spr_red_explosion.setFrame(10); //Apaga da tela o rastro da explosao
 				return true;
 		}
 		else return false;
 	}
 	
+	/*
 	private void playSound(String file) {
             try {
                 InputStream in = getClass().getResourceAsStream (file);
-                Player player = Manager.createPlayer(in, "audio/x-wav");
+                Player player = Manager.createPlayer(in, "audio/x-amr");
                 player.start();
             } 
             catch (Exception e) {
@@ -1078,7 +1079,22 @@ public class AsteroidsController extends GameCanvas implements Runnable, Command
                 return;
             }
         }
-
+	*/
+	
+	private void playSound(String file){
+		try {
+			InputStream in = getClass().getResourceAsStream(file);
+			Player player = Manager.createPlayer(in, "audio/x-wav");
+			player.setLoopCount(-1);
+			player.realize();
+			player.prefetch();
+			player.start();
+		}
+		catch (Exception e) {
+			System.out.println("Erro ao reproduzir arquivo!");
+		}
+	}
+	
 	public void sair() {
 		//this.midlet.destroyApp(true);
 		this.midlet.notifyDestroyed();
