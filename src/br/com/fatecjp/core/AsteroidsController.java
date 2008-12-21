@@ -1065,7 +1065,7 @@ public class AsteroidsController extends GameCanvas implements Runnable, Command
 		else return false;
 	}
 	
-<<<<<<< .mine
+
 	private void playSound(String file){
 		try {
 			InputStream in = getClass().getResourceAsStream(file);
@@ -1080,7 +1080,6 @@ public class AsteroidsController extends GameCanvas implements Runnable, Command
 		}
 	}
 	
-=======
 	/*
 	private void playSound(String file) {
             try {
@@ -1097,21 +1096,6 @@ public class AsteroidsController extends GameCanvas implements Runnable, Command
         }
 	*/
 	
-	private void playSound(String file){
-		try {
-			InputStream in = getClass().getResourceAsStream(file);
-			Player player = Manager.createPlayer(in, "audio/x-wav");
-			player.setLoopCount(-1);
-			player.realize();
-			player.prefetch();
-			player.start();
-		}
-		catch (Exception e) {
-			System.out.println("Erro ao reproduzir arquivo!");
-		}
-	}
-	
->>>>>>> .r51
 	public void sair() {
 		//this.midlet.destroyApp(true);
 		this.midlet.notifyDestroyed();
